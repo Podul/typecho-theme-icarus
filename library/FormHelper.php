@@ -1,36 +1,32 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
+
 class Icarus_Form_Element_Text extends Typecho_Widget_Helper_Form_Element_Text
 {
-    public function value($value)
+    public function inputValue($value)
     {
         if (!is_null($value))
-            return parent::value($value);
-        else
-            return $this;
+            parent::inputValue($value);
     }
 }
 
 class Icarus_Form_Element_Textarea extends Typecho_Widget_Helper_Form_Element_Textarea
 {
-    public function value($value)
+    public function inputValue($value)
     {
         if (!is_null($value))
-            return parent::value($value);
-        else
-            return $this;
+            parent::inputValue($value);
     }
 }
 
+
 class Icarus_Form_Element_Radio extends Typecho_Widget_Helper_Form_Element_Radio
 {
-    public function value($value)
+    public function inputValue($value)
     {
         if (!is_null($value))
-            return parent::value($value);
-        else
-            return $this;
+            parent::inputValue($value);
     }
 }
 
@@ -45,17 +41,19 @@ class Icarus_Form_VersionField extends Typecho_Widget_Helper_Form_Element_Hidden
         parent::__construct(Icarus_Config::prefixKey('config_version'), NULL, __ICARUS_CFG_VERSION__);
     }
 
-    public function value($value)
+    public function inputValue($value)
     {
-        return parent::value(__ICARUS_CFG_VERSION__);
+        parent::inputValue(__ICARUS_CFG_VERSION__);
     }
 }
+
+
 
 class Icarus_Form_ConfigBackup extends Typecho_Widget_Helper_Form_Element
 {
     public function __construct()
     {
-        parent::__construct('icarus_backup', NULL, NULL, '主题设置备份', NULL);
+        parent::__construct('icarus_backup', null, null, '主题设置备份', null);
     }
 
     /**
@@ -66,7 +64,7 @@ class Icarus_Form_ConfigBackup extends Typecho_Widget_Helper_Form_Element
      * @param array $options 选择项
      * @return Typecho_Widget_Helper_Layout
      */
-    public function input($name = NULL, array $options = NULL)
+    public function input(?string $name = null, ?array $options = null): ? Typecho_Widget_Helper_Layout
     {
         $backupExist = intval(Icarus_Backup::exist());
         $security = Helper::security();
@@ -110,20 +108,15 @@ class Icarus_Form_ConfigBackup extends Typecho_Widget_Helper_Form_Element
         $script = new Typecho_Widget_Helper_Layout('script');
         $script->html(self::BACKUP_SCRIPT);
         $this->container($script);
-            
         return NULL;
     }
 
     /**
      * 设置表单元素值
      *
-     * @access protected
      * @param mixed $value 表单元素值
-     * @return void
      */
-    protected function _value($value)
-    {
-    }
+    protected function inputValue($value) {}
 
     const BACKUP_SCRIPT = <<<SCRIPT
 document.addEventListener('DOMContentLoaded', function () {

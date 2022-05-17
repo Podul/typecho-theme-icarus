@@ -76,7 +76,7 @@ class Icarus_Config
 
     public function html($html)
     {
-        $layout = new Typecho_Widget_Helper_Layout(NULL);
+        $layout = new Typecho_Widget_Helper_Layout('');
         $layout->html($html);
         $this->_form->addItem($layout);
     }
